@@ -49,7 +49,6 @@ class Forker
     {
         $keys = array_keys($fork_rows);
 
-        var_dump($keys);
         $exit_statuses = $this->fork(function ($i, $data) use ($fork_callback) {
             $key = $data['keys'][$i - 1];
             $row = $data['rows'][$key];
