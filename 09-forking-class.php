@@ -58,7 +58,7 @@ class Forker
 
         $row_exit_statuses = [];
         foreach ($exit_statuses as $i => $exit_status) {
-            $row_exit_status[$keys[$i]] = $exit_status;
+            $row_exit_statuses[$keys[$i - 1]] = $exit_status;
         }
 
         return $row_exit_statuses;
