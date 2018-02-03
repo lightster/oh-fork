@@ -63,4 +63,18 @@ class Forker
 
         return $row_exit_statuses;
     }
+
+    public function forkCallbacks(array $callbacks)
+    {
+        $exit_statuses = $this->fork(function ($i, $data) {
+            return call_user_func($data[$i - 1]);
+        }, count($callbacks), $callbacks);
+
+        $row_exit_statuses = [];
+        foreach ($exit_statuses as $i => $exit_status) {
+            $row_exit_statuses[$keys[$i - 1]] = $exit_status;
+        }
+
+        return $row_exit_statuses;
+    }
 }
