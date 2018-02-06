@@ -2,13 +2,6 @@
 
 class Forker
 {
-    /**
-     * @var
-     */
-    private $pids;
-
-
-
     public function fork(callable $fork_callback, $fork_count, $data)
     {
         $pids = [];
