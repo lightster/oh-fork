@@ -5,7 +5,7 @@ require_once 'Forker.php';
 $agents = [
     'Morgan'   => 4,
     'Reid'     => 0,
-    'Hotchner' => 7,
+    'Hotchner' => 20,
     'Prentiss' => 1,
     'Rossi'    => 3,
     'JJ'       => 4,
@@ -29,19 +29,19 @@ foreach ($agents as $agent => $time) {
     $pids[$pid] = $agent;
 }
 
-declare(ticks=1);
-
 pcntl_signal(SIGALRM, function($signo) use (&$pids) {
     foreach($pids as $pid => $agent) {
         posix_kill($pid, SIGTERM);
     }
 });
 
-pcntl_alarm(4);
+pcntl_alarm(5);
 
 while ($pids) {
     $status = null;
-    $pid = pcntl_wait($status);
+    declare(ticks=1) {
+        $pid = pcntl_wait($status);
+    }
     if ($pid == -1) {
         echo "Hmm. We did not witness everyone finish.\n";
         continue;
